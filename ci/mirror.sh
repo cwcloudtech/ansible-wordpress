@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-REPO_PATH="${PROJECT_HOME}/ansible-kinsing/"
+REPO_PATH="${PROJECT_HOME}/ansible-wordpress/"
 
 cd "${REPO_PATH}" && git pull origin main || :
 git push github main 
