@@ -1,0 +1,7 @@
+ErrorDocument 401 "Authorisation Required"
+ErrorDocument 403 "Authorisation Required"
+
+AuthName "Secure Area"
+AuthType Basic
+AuthUserFile "{{ wp_htpasswd_admin_path }}/.htpasswd"
+require valid-user

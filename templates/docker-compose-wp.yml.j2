@@ -1,0 +1,36 @@
+version: "3.9"
+    
+services:
+  db:
+    image: mysql:{{ wp_mysql_version }}
+    container_name: {{ wp_mysql_host }}
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: {{ wp_mysql_passwd }}
+      MYSQL_DATABASE: {{ wp_mysql_name }}
+      MYSQL_USER: {{ wp_mysql_user }}
+      MYSQL_PASSWORD: {{ wp_mysql_passwd }}
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:{{ wp_version }}
+    container_name: {{ wp_wp_host }}
+    volumes:
+      - wordpress_data:/var/www/html
+      - /root/admin-htaccess-{{ wp_instance_name }}.httpd:{{ wp_htpasswd_admin_path }}/.htaccess:z
+      - /root/admin-htpasswd-{{ wp_instance_name }}.httpd:{{ wp_htpasswd_admin_path }}/.htpasswd:z
+      - /root/wp-config-{{ wp_instance_name }}.php:{{ wp_document_root }}/wp-config.php:z
+      - /root/home-htaccess-{{ wp_instance_name }}.httpd:{{ wp_document_root }}/.htaccess:z
+    ports:
+      - "{{ wp_port }}:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: {{ wp_mysql_host }}
+      WORDPRESS_DB_USER: {{ wp_mysql_user }}
+      WORDPRESS_DB_PASSWORD: {{ wp_mysql_passwd }}
+      WORDPRESS_DB_NAME: {{ wp_mysql_name }}
+volumes:
+  db_data: {}
+  wordpress_data: {}

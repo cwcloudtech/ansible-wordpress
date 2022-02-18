@@ -1,0 +1,19 @@
+---
+- name: Create wordpress files
+  become: yes
+  template:
+    src: "{{ item.template }}.{{ item.ext }}.j2"
+    dest: "{{ item.path }}/{{ item.template }}-{{ wp_instance_name }}.{{ item.ext }}"
+    mode: "{{ item.mode }}"
+    group: docker
+  with_items:
+    - { template: docker-compose-wp , ext: yml, path: "{{ node_home }}", mode: '0644' }
+    - { template: wordpress_start , ext: sh, path: "{{ node_home }}", mode: '0755' }
+    - { template: admin-htaccess , ext: httpd, path: "{{ node_home }}", mode: '0644' }
+    - { template: admin-htpasswd , ext: httpd, path: "{{ node_home }}", mode: '0644' }
+    - { template: home-htaccess , ext: httpd, path: "{{ node_home }}", mode: '0644' }
+    - { template: wp-config , ext: php, path: "{{ node_home }}", mode: '0644' }
+
+- name: Run the containers
+  become: yes
+  command: "bash {{ node_home }}/wordpress_start-{{ wp_instance_name }}.sh"

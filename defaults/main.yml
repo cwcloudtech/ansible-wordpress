@@ -1,0 +1,22 @@
+---
+wp_lang: en_EN
+wp_mysql_charset: utf8
+wp_mysql_version: 5.7
+wp_version: 5.9.0
+wp_enable_https: true
+wp_home_server_name_enabled: false
+wp_mysql_host: wp_db
+wp_wp_host: wp_app
+wp_mysql_user: wordpress
+wp_mysql_name: wordpress
+wp_force_recreate: false
+wp_import_max_size: 2048M
+wp_import_timeout: 18000
+wp_port: 8000
+wp_document_root: /var/www/html
+wp_htpasswd_admin_path: /var/www/html/wp-admin
+wp_admin_users: []
+
+wp_table_prefix: wp_xxxx_changeit
+wp_mysql_passwd: changeit
+wp_root_url: https://changeit.com
