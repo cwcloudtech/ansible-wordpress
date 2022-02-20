@@ -2,6 +2,8 @@
 
 Ansible role for installing wordpress instance based on docker containers (you'll have to install docker and docker-compose first).
 
+This role is used by our WPaaS (Wordpress as a service) offer: https://wpaas.comwork.io
+
 ## Table of content
 
 [[_TOC_]]
