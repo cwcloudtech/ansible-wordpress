@@ -31,6 +31,12 @@ services:
       WORDPRESS_DB_USER: {{ wp_mysql_user }}
       WORDPRESS_DB_PASSWORD: {{ wp_mysql_passwd }}
       WORDPRESS_DB_NAME: {{ wp_mysql_name }}
+      WORDPRESS_SMTP_HOST: {{ smtp_host }}
+      WORDPRESS_SMTP_PORT: {{ smtp_port }}
+      WORDPRESS_SMTP_USERNAME: {{ smtp_username }}
+      WORDPRESS_SMTP_PASSWORD: {{ smtp_password }}
+      WORDPRESS_SMTP_FROM: {{ wp_smtp_from }}
+      WORDPRESS_SMTP_FROM_NAME: {{ wp_smtp_from_bui_name }}
 volumes:
   db_data: {}
   wordpress_data: {}

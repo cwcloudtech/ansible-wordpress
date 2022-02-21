@@ -88,20 +88,54 @@ define( 'WP_HOME', '{{ wp_root_url }}' );
 define( 'WP_SITEURL', '{{ wp_root_url }}' );
 {% endif %}
 
-// SMTP email settings
-define( 'SMTP_username', '{{ smtp_username }}' );
-define( 'SMTP_password', '{{ smtp_password }}' );
-define( 'SMTP_server', '{{ smtp_host }}' );
-define( 'SMTP_FROM', '{{ wp_smtp_from }}' );
-define( 'SMTP_NAME', '{{ wp_smtp_from_bui_name }}' );
-define( 'SMTP_PORT', '{{ smtp_port }}' );
-define( 'SMTP_SECURE', 'tls' );
-define( 'SMTP_AUTH', true );
-define( 'SMTP_DEBUG',   0 );
-
 /* That's all, stop editing! Happy blogging. */
 /** Absolute path to the WordPress directory. */
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
+
+require_once( ABSPATH .'wp-includes/plugin.php' );
+
+add_action( 'phpmailer_init', function ( $phpmailer ) {
+    $phpmailer->isSMTP();
+    $phpmailer->Host = getenv('WORDPRESS_SMTP_HOST');
+    $phpmailer->Port = intval(getenv('WORDPRESS_SMTP_PORT'));
+    $phpmailer->Username = getenv('WORDPRESS_SMTP_USERNAME');
+    $phpmailer->Password = getenv('WORDPRESS_SMTP_PASSWORD');
+    $phpmailer->From = getenv('WORDPRESS_SMTP_FROM');
+    $phpmailer->FromName = getenv('WORDPRESS_SMTP_FROM_NAME');
+
+    // Additional settings
+    $phpmailer->SMTPAuth = true;
+    $phpmailer->SMTPSecure = "tls";
+    $phpmailer->SMTPAutoTLS = true;
+
+    // Filter out client message body and output debug info to the logs
+    // NOTE: Log level must be set to '2' or higher in order for the filter to work
+    $phpmailer->SMTPDebug = 2;
+
+    $phpmailer->Debugoutput = function($str) {
+        static $logging = true;
+        if ($logging === false && strpos($str, 'SERVER -> CLIENT') !== false) {
+            $logging = true;
+        }
+        if ($logging) {
+            error_log("SMTP " . "$str");
+        }
+        if (strpos($str, 'SERVER -> CLIENT: 354') !== false) {
+            $logging = false;
+        }
+    };
+
+    error_log("[SMTP] Sending mail : " . var_export($phpmailer, true));
+});
+
+// Prevent Wordpress from overriding the SMTP FROM address (Office 365 compatibility)
+add_filter( 'wp_mail_from', function( $email ) {
+    return $_ENV["WORDPRESS_SMTP_FROM"];
+});
+
+add_action('wp_mail_failed', function( $wperror ) {
+  error_log(implode("; ", $wperror->get_error_messages()));
+});

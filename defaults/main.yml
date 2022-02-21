@@ -20,3 +20,10 @@ wp_admin_users: []
 wp_table_prefix: wp_xxxx_changeit
 wp_mysql_passwd: changeit
 wp_root_url: https://changeit.com
+
+smtp_host: changeit
+smtp_port: 587
+smtp_username: changeit
+smtp_password: changeit
+wp_smtp_from: changeit@changeit.com
+wp_smtp_from_bui_name: changeit
