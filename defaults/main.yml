@@ -16,6 +16,7 @@ wp_port: 8000
 wp_document_root: /var/www/html
 wp_htpasswd_admin_path: /var/www/html/wp-admin
 wp_admin_users: []
+expose_php: "off"
 
 wp_table_prefix: wp_xxxx_changeit
 wp_mysql_passwd: changeit

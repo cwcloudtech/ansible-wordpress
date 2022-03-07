@@ -13,6 +13,7 @@
     - { template: admin-htpasswd , ext: httpd, path: "{{ node_home }}", mode: '0644' }
     - { template: home-htaccess , ext: httpd, path: "{{ node_home }}", mode: '0644' }
     - { template: wp-config , ext: php, path: "{{ node_home }}", mode: '0644' }
+    - { template: php , ext: ini, path: "{{ node_home }}", mode: '0644' }
 
 - name: Run the containers
   become: yes
