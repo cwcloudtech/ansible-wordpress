@@ -376,7 +376,11 @@ zend.exception_ignore_args = On
 ; threat in any way, but it makes it possible to determine whether you use PHP
 ; on your server or not.
 ; http://php.net/expose-php
+{% if expose_php is defined and not expose_php %}
+expose_php = off
+{% elif expose_php is defined and expose_php %}
 expose_php = {{ expose_php }}
+{% endif %}
 
 ;;;;;;;;;;;;;;;;;;;
 ; Resource Limits ;

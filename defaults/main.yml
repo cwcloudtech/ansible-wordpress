@@ -15,6 +15,7 @@ wp_import_timeout: 18000
 wp_port: 8000
 wp_document_root: /var/www/html
 wp_htpasswd_admin_path: /var/www/html/wp-admin
+wp_php_config: /usr/local/etc/php
 wp_admin_users: []
 expose_php: "off"
 
