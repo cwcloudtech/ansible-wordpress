@@ -23,8 +23,8 @@ services:
       - /root/admin-htpasswd-{{ wp_instance_name }}.httpd:{{ wp_htpasswd_admin_path }}/.htpasswd:z
       - /root/wp-config-{{ wp_instance_name }}.php:{{ wp_document_root }}/wp-config.php:z
       - /root/home-htaccess-{{ wp_instance_name }}.httpd:{{ wp_document_root }}/.htaccess:z
-      - /root/php.ini:{{ wp_php_config }}/php.ini-production:z
-      - /root/php.ini:{{ wp_php_config }}/php.ini-development:z
+      - /root/php-{{ wp_instance_name }}.ini:{{ wp_php_config }}/php.ini-production:z
+      - /root/php-{{ wp_instance_name }}.ini:{{ wp_php_config }}/php.ini-development:z
     ports:
       - "{{ wp_port }}:80"
     restart: always
