@@ -4,4 +4,11 @@ ErrorDocument 403 "Authorisation Required"
 AuthName "Secure Area"
 AuthType Basic
 AuthUserFile "{{ wp_htpasswd_admin_path }}/.htpasswd"
-require valid-user
+
+SetEnvIf Request_URI "^.*/admin-ajax.php.*" ajax
+
+Order allow,deny
+Require valid-user
+Allow from env=ajax
+Deny from env=!ajax
+Satisfy any

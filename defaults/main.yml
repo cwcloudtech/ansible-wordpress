@@ -1,7 +1,7 @@
 ---
 wp_lang: en_EN
 wp_mysql_charset: utf8
-wp_mysql_version: 5.7
+wp_mysql_version: 5.9.2
 wp_version: 5.9.0
 wp_enable_https: true
 wp_home_server_name_enabled: false
