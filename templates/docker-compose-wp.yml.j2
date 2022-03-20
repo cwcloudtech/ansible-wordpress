@@ -6,7 +6,7 @@ services:
     container_name: {{ wp_mysql_host }}
     volumes:
       - db_data:/var/lib/mysql
-    restart: always
+    restart: on-failure
     environment:
       MYSQL_ROOT_PASSWORD: {{ wp_mysql_passwd }}
       MYSQL_DATABASE: {{ wp_mysql_name }}
@@ -27,7 +27,7 @@ services:
       - /root/php-{{ wp_instance_name }}.ini:{{ wp_php_config }}/php.ini-development:z
     ports:
       - "{{ wp_port }}:80"
-    restart: always
+    restart: on-failure
     environment:
       WORDPRESS_DB_HOST: {{ wp_mysql_host }}
       WORDPRESS_DB_USER: {{ wp_mysql_user }}
