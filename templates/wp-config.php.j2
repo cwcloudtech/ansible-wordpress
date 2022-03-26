@@ -139,3 +139,8 @@ add_filter( 'wp_mail_from', function( $email ) {
 add_action('wp_mail_failed', function( $wperror ) {
   error_log(implode("; ", $wperror->get_error_messages()));
 });
+
+{% if wp_cache_enable is defined and wp_cache_enable %}
+/** Enable W3 Total Cache */
+define('WP_CACHE', true); // Added by W3 Total Cache
+{% endif %}
