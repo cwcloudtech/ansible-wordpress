@@ -14,7 +14,18 @@
     - { template: home-htaccess , ext: httpd, path: "{{ node_home }}", mode: '0644' }
     - { template: wp-config , ext: php, path: "{{ node_home }}", mode: '0644' }
     - { template: php , ext: ini, path: "{{ node_home }}", mode: '0644' }
+    - { template: wp-restart-containers , ext: sh, path: "{{ node_home }}", mode: '0755' }
 
 - name: Run the containers
   become: yes
   command: "bash {{ node_home }}/wordpress_start-{{ wp_instance_name }}.sh"
+
+- name: Creates restart containers cron
+  ansible.builtin.cron:
+    name: restart containers cron
+    minute: "0"
+    hour: "0"
+    user: root
+    job: "bash {{ node_home }}/wp-restart-containers.sh"
+    cron_file: ansible_restart_containers
+  when: wp_enable_restart is defined and wp_enable_restart

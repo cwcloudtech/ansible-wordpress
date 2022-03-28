@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: matomo
+  role_name: wordpress
   author: Idriss Neumann
   description: Install wordpress
   company: Comwork
