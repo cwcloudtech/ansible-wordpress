@@ -26,6 +26,6 @@
     minute: "0"
     hour: "0"
     user: root
-    job: "bash {{ node_home }}/wp-restart-containers.sh"
+    job: "bash {{ node_home }}/wp-restart-containers-{{ wp_instance_name }}.sh"
     cron_file: ansible_restart_containers
   when: wp_enable_restart is defined and wp_enable_restart
