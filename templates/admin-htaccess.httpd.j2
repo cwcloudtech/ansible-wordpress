@@ -5,7 +5,7 @@ AuthName "Secure Area"
 AuthType Basic
 AuthUserFile "{{ wp_htpasswd_admin_path }}/.htpasswd"
 
-SetEnvIf Request_URI "^.*/admin-ajax.php.*" ajax
+SetEnvIf Request_URI "^.*/(admin-ajax|media-new).php.*" ajax
 
 Order allow,deny
 Require valid-user
