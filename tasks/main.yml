@@ -11,7 +11,7 @@
     - { template: wordpress_start , ext: sh, path: "{{ node_home }}", mode: '0755' }
     - { template: admin-htaccess , ext: httpd, path: "{{ node_home }}", mode: '0644' }
     - { template: admin-htpasswd , ext: httpd, path: "{{ node_home }}", mode: '0644' }
-    - { template: home-htaccess , ext: httpd, path: "{{ node_home }}", mode: '0644' }
+    - { template: home-htaccess , ext: httpd, path: "{{ node_home }}", mode: '0766' }
     - { template: wp-config , ext: php, path: "{{ node_home }}", mode: '0644' }
     - { template: php , ext: ini, path: "{{ node_home }}", mode: '0644' }
     - { template: wp-restart-containers , ext: sh, path: "{{ node_home }}", mode: '0755' }
