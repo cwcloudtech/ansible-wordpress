@@ -11,7 +11,5 @@ This role is used by our WPaaS (Wordpress as a service) offer: https://wpaas.com
 ## Git repositories
 
 * Main repo: https://gitlab.comwork.io/oss/ansible-iac/ansible-wordpress.git
-* Github mirror: https://github.com/idrissneumann/ansible-wordpress.git
+* Github mirror: https://github.com/comworkio/ansible-wordpress.git
 * Gitlab mirror: https://gitlab.com/ineumann/ansible-wordpress.git
-* Bitbucket mirror: https://bitbucket.org/idrissneumann/ansible-wordpress.git
-* Froggit mirror: https://lab.frogg.it/ineumann/ansible-wordpress.git
