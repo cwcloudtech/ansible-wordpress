@@ -1,0 +1,12 @@
+# prefork MPM
+# StartServers: number of server processes to start
+# MinSpareServers: minimum number of server processes which are kept spare
+# MaxSpareServers: maximum number of server processes which are kept spare
+# MaxRequestWorkers: maximum number of server processes allowed to start
+# MaxConnectionsPerChild: maximum number of requests a server process serves
+
+StartServers             {{ cpu_cores  }}
+MinSpareServers          {{ cpu_cores  }}
+MaxSpareServers          {{ (cpu_cores | int) * 2 }}
+MaxRequestWorkers        {{ (cpu_cores | int) * 15 }}
+MaxConnectionsPerChild   1000

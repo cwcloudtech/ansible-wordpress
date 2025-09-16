@@ -1,6 +1,10 @@
 ---
+- name: Set a variable with the number of CPU cores
+  set_fact:
+    cpu_cores: "{{ ansible_facts.processor_vcpus }}"
+
 - name: Create wordpress files
-  become: yes
+  become: true
   template:
     src: "{{ item.template }}.{{ item.ext }}.j2"
     dest: "{{ item.path }}/{{ item.template }}-{{ wp_instance_name }}.{{ item.ext }}"
@@ -9,18 +13,20 @@
   with_items:
     - { template: docker-compose-wp , ext: yml, path: "{{ node_home }}", mode: '0644' }
     - { template: wordpress_start , ext: sh, path: "{{ node_home }}", mode: '0755' }
-    - { template: admin-htaccess , ext: httpd, path: "{{ node_home }}", mode: '0644' }
+    - { template: admin-htaccess , ext: httpd, path: "{{ node_home }}", mode: '0755' }
     - { template: admin-htpasswd , ext: httpd, path: "{{ node_home }}", mode: '0644' }
     - { template: home-htaccess , ext: httpd, path: "{{ node_home }}", mode: '0766' }
     - { template: wp-config , ext: php, path: "{{ node_home }}", mode: '0644' }
     - { template: php , ext: ini, path: "{{ node_home }}", mode: '0644' }
     - { template: wp-restart-containers , ext: sh, path: "{{ node_home }}", mode: '0755' }
+    - { template: mpm_prefork , ext: conf , path: "{{ node_home }}" , mode: '0644'}
 
 - name: Run the containers
-  become: yes
+  become: true
   command: "bash {{ node_home }}/wordpress_start-{{ wp_instance_name }}.sh"
 
 - name: Creates restart containers cron
+  become: true
   ansible.builtin.cron:
     name: restart containers cron
     minute: "0"

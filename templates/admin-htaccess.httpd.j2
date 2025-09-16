@@ -1,14 +1,16 @@
 ErrorDocument 401 "Authorisation Required"
 ErrorDocument 403 "Authorisation Required"
 
+{% if wp_admin_users is defined and wp_admin_users %}
 AuthName "Secure Area"
 AuthType Basic
 AuthUserFile "{{ wp_htpasswd_admin_path }}/.htpasswd"
 
-SetEnvIf Request_URI "^.*/admin-ajax.php.*" ajax
+SetEnvIf Request_URI "^.*/(admin-ajax.php|js|css).*" ajax
 
 Order allow,deny
 Require valid-user
 Allow from env=ajax
 Deny from env=!ajax
 Satisfy any
+{% end %}
